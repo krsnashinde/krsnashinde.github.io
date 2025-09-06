@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio Hub</title>
+  <style>
+    /* Animated Moonlit Gradient Background */
+    @keyframes moonlitGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 60%; }
+      100% { background-position: 0% 50%; }
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(
+        75deg,
+        rgba(15, 23, 42, 0.85),
+        rgba(30, 41, 59, 0.95),
+        rgba(79, 70, 229, 0.7),
+        rgba(147, 197, 253, 0.6),
+        rgba(147, 197, 253, 0.2)
+      );
+      background-size: 200% 200%;
+      animation: moonlitGradient 20s ease infinite;
+      color: #ddd;
+      overflow-x: hidden;
+    }
+
+    /* Floating Orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(100, 181, 246, 0.15);
+      animation: moveOrb 20s linear infinite;
+      z-index: 0;
+    }
+    .orb1 { width: 120px; height: 120px; top: 20%; left: 10%; animation-delay: 0s; }
+    .orb2 { width: 200px; height: 200px; top: 70%; left: 70%; animation-delay: 10s; }
+    @keyframes moveOrb {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-50px) translateX(30px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+
+    /* Container styles */
+    header, section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    header { background: rgba(15, 23, 42, 0.9); color: #64b5f6; }
+    nav a {
+      color: #64b5f6;
+      margin-right: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s;
+    }
+    nav a:hover,
+    nav a:focus { color: #bbdefb; }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: -5px;
+      left: 0;
+      background-color: #bbdefb;
+      transition: width 0.3s;
+    }
+    nav a:hover::after { width: 100%; }
+
+    /* Hero styling */
+    #hero {
+      text-align: center;
+      color: #bbdefb;
+      padding-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #hero img {
+      border-radius: 50%;
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border: 4px solid #64b5f6;
+      background: #1e293b;
+      animation: float 6s ease-in-out infinite, shadowPulse 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+    @keyframes shadowPulse {
+      0%, 100% { box-shadow: 0 0 15px #64b5f6aa; }
+      50% { box-shadow: 0 0 30px #64b5f6; }
+    }
+    #hero h2 {
+      margin-top: 1rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 8px #0e1b35;
+    }
+    #hero p.typing {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      font-style: italic;
+      text-shadow: 1px 1px 6px #0e1b35;
+      display: inline-block;
+      border-right: 3px solid #64b5f6;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(40, end), blink 0.7s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    #hero a {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background-color: #64b5f6;
+      color: #0e1b35;
+      font-weight: 600;
+      border-radius: 9999px;
+      box-shadow: 0 4px 14px #64b5f6cc;
+      text-decoration: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      align-self: center;
+    }
+    #hero a:hover {
+      background-color: #42a5f5;
+      box-shadow: 0 6px 16px #42a5f5cc;
+    }
+
+    /* Section titles */
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #060606;
+      border-bottom: 2px solid #64b5f6;
+      padding-bottom: 0.3rem;
+    }
+
+    /* About and Projects text */
+    section p, article p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #0b0b0b;
+    }
+
+    /* Skills list */
+    #skills ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    #skills li {
+      background: #64b5f6aa;
+      color: #0e1b35;
+      padding: 0.5rem 1.2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #42a5f566;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+    #skills li:hover {
+      animation: skillPulse 1.2s infinite;
+    }
+    @keyframes skillPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 2px 8px #42a5f566; }
+      50% { transform: scale(1.1); box-shadow: 0 4px 20px #64b5f688; }
+    }
+
+    /* Projects grid */
+    #projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    #projects article {
+      background: rgba(113, 141, 219, 0.6);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 25px #595c5c22;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    #projects article:hover {
+      box-shadow: 0 10px 40px #b5d8f577;
+      transform: translateY(-6px);
+    }
+    #projects a {
+      color: #82b7da;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    #projects a:hover {
+      color: #64b5f6;
+      text-decoration: underline;
+    }
+
+    /* Contact form styling */
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: rgba(15, 23, 42, 0.85);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px #64b5f622;
+      max-width: 500px;
+      margin: auto;
+    }
+    #contact label {
+      font-weight: 600;
+      color: #bbdefb;
+    }
+    #contact input,
+    #contact textarea {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #64b5f6;
+      border-radius: 8px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-family: inherit;
+      resize: vertical;
+      background: #1e293b;
+      color: #cfd8dc;
+    }
+    #contact input::placeholder,
+    #contact textarea::placeholder {
+      color: #90a4ae;
+    }
+    #contact input:focus,
+    #contact textarea:focus {
+      border-color: #42a5f5;
+      box-shadow: 0 0 8px #42a5f5aa;
+      outline: none;
+      background: #273c75;
+    }
+    #contact button {
+      padding: 0.85rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0e1b35;
+      background-color: #64b5f6;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 6px 15px #64b5f6cc;
+    }
+    #contact button:hover {
+      background-color: #42a5f5;
+      box-shadow: 0 8px 20px #42a5f5cc;
+    }
+
+    /* Scroll reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #projects {
+        grid-template-columns: 1fr;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background animated orbs -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <!-- Header / Navigation -->
+  <header>
+    <nav aria-label="Primary">
+      <h1>My Portfolio Hub</h1>
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <img src="Profile.jpg" alt="Profile Picture" />
+    <h2>Hello, I'm Krishna Shinde</h2>
+    <p class="typing">Full-Stack Developer | Exploring Blockchain & AI 🚀</p>
+    <a href="#contact" role="button">Let's Connect</a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="reveal">
+    <h2>About Me</h2>
+    <p>
+     “I’m a passionate Full-Stack Developer with hands-on experience in React, Next.js, Node.js, and MongoDB. My portfolio hub is a collection of projects that reflect my creativity, technical expertise, and commitment to building efficient, user-friendly solutions. Currently exploring Blockchain and AI-driven technologies, I strive to stay at the forefront of innovation. Feel free to dive into my work and reach out for exciting opportunities to collaborate!”
+    </p>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="reveal">
+    <h2>Skills & Technologies</h2>
+    <ul>
+      <li>React</li>
+      <li>JavaScript</li>
+      <li>Tailwind CSS</li>
+      <li>Node.js</li>
+      <li>TypeScript</li>
+    </ul>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="reveal">
+    <h2>Projects</h2>
+    <article>
+      <h3><a href="#">Portfolio Hub</a></h3>
+      <p>My personal website hub showcasing all creative works with clean design and responsiveness.</p>
+    </article>
+    <article>
+      <h3><a href="#">React Blog</a></h3>
+      <p>A modern blogging site built with React, featuring markdown support and intuitive UI.</p>
+    </article>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="reveal">
+    <h2>Contact Me</h2>
+    <form>
+      <label for="name">Name:</label>  
+      <input id="name" name="name" type="text" placeholder="Your Name" required />
+      <label for="email">Email:</label>  
+      <input id="email" name="email" type="email" placeholder="your.email@example.com" required />
+      <label for="message">Message:</label>  
+      <textarea id="message" name="message" rows="4" placeholder="Write your message here..." required></textarea>  
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <!-- Scroll Reveal Script -->
+  <script>
+    const reveals = document.querySelectorAll(".reveal");
+    window.addEventListener("scroll", () => {
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 120;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
