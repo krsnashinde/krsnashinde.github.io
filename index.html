@@ -10,35 +10,75 @@
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: #ffcc00;
+  background: #000;
   display: flex; align-items: center; justify-content: center;
   z-index: 9999;
   animation: fadeOut 2s ease 2.8s forwards;
 }
 #intro-screen h1 {
   font-size: 3rem;
-  color: #000;
+  color: #00ff9f;
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
   letter-spacing: 3px;
   animation: bounceIn 2s ease;
 }
-@keyframes fadeOut {
-  to { opacity: 0; visibility: hidden; }
-}
-@keyframes bounceIn {
-  0% { transform: scale(0.5); opacity: 0; }
-  60% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); }
-}
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+@keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); } }
 
-/* ---------- BACKGROUND ---------- */
+/* ---------- BODY ---------- */
 body {
   margin: 0;
   font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
-  background: #000;
+  background: linear-gradient(270deg, #0f0f0f, #001f2f, #0f0f0f);
+  background-size: 600% 600%;
+  animation: gradientBG 20s ease infinite;
   color: #fff;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+  cursor: none;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---------- PARTICLE BACKGROUND ---------- */
+#particles, #code-rain {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -2;
+}
+
+/* ---------- CLOCK + DATE ---------- */
+#clock-date-box {
+  position: fixed;
+  top: 15px;
+  right: 25px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  z-index: 1000;
+}
+#digital-clock {
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #f2e9eb;
+  margin-bottom: 5px;
+  box-shadow: 0 0 15px rgba(111, 255, 164, 0.5);
+}
+#day-date {
+  font-size: 0.85rem;
+  color: #ccc;
+  background: rgba(0,0,0,0.5);
+  padding: 4px 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
 
 /* ---------- HEADER ---------- */
@@ -54,22 +94,14 @@ header {
   border-bottom: 1px solid #555;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-
 header h1 {
   font-size: 1.8rem;
   color: #fff;
   font-weight: 700;
   margin-bottom: 0.8rem;
-  text-shadow: 0 0 10px #888;
+  text-shadow: 0 0 10px #00ff9f;
 }
-
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
+nav { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
 nav a {
   color: #ccc;
   text-decoration: none;
@@ -77,9 +109,12 @@ nav a {
   font-size: 1rem;
   letter-spacing: 0.5px;
   position: relative;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
-nav a:hover { color: #fff; }
+nav a:hover { 
+  color: #00ff9f; 
+  text-shadow: 0 0 10px #00ff9f, 0 0 20px #ff6fff;
+}
 nav a::after {
   content: '';
   position: absolute;
@@ -87,64 +122,12 @@ nav a::after {
   left: 0;
   width: 0%;
   height: 2px;
-  background: grey;
+  background: #00ff9f;
   transition: width 0.3s ease;
 }
 nav a:hover::after { width: 100%; }
 
-/* ---------- ANALOG CLOCK ---------- */
-#clock-box {
-  position: fixed;
-  top: 15px;
-  right: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  z-index: 100;
-}
-#clock {
-  width: 70px;
-  height: 70px;
-  border: 3px solid grey;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(50,50,50,0.4);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 0 20px rgba(255,255,255,0.15);
-  position: relative;
-}
-.hand {
-  position: absolute;
-  background: white;
-  transform-origin: bottom;
-  transition: all 0.5s ease-in-out;
-}
-.hand.hour { width: 3px; height: 20px; bottom: 35px; }
-.hand.minute { width: 2px; height: 28px; bottom: 35px; }
-.hand.second { width: 1px; height: 32px; bottom: 35px; background: #f54291; }
-
-/* DATE DISPLAY BELOW CLOCK */
-#date-box {
-  border: 1px solid grey;
-  border-radius: 10px;
-  padding: 6px 10px;
-  text-align: center;
-  background: rgba(255,255,255,0.05);
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 500;
-  width: 110px;
-  animation: glowDate 2s ease-in-out infinite alternate;
-}
-@keyframes glowDate {
-  from { box-shadow: 0 0 5px grey; }
-  to { box-shadow: 0 0 15px #999; }
-}
-
-/* ---------- HERO SECTION ---------- */
+/* ---------- HERO ---------- */
 #hero {
   text-align: center;
   padding: 6rem 1rem 4rem;
@@ -153,64 +136,76 @@ nav a:hover::after { width: 100%; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #444;
+  gap: 2rem;
+  overflow: hidden;
 }
 #hero img {
-  width: 220px;
-  height: 220px;
+  width: 250px;
+  height: 250px;
   object-fit: cover;
-  border-radius: 20px;
-  box-shadow: 0 0 60px rgba(255,255,255,0.25);
-  animation: float 6s ease-in-out infinite, pop 2s ease-in-out;
-  transform: translateZ(0);
+  border-radius: 50%;
+  box-shadow: 0 0 30px #00ff9f, 0 0 50px #ff6fff;
+  animation: float 6s ease-in-out infinite, neonPulse 2s infinite;
 }
-@keyframes float {
-  0%,100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-15px) scale(1.05); }
+@keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+@keyframes neonPulse {
+  0%,100% { box-shadow: 0 0 30px #00ff9f,0 0 50px #ff6fff; }
+  50% { box-shadow: 0 0 50px #00ff9f,0 0 80px #ff6fff; }
 }
-@keyframes pop {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+#hero h2 { 
+  font-size: 2.8rem; 
+  margin-top: 1.2rem; 
+  font-weight: 700; 
+  color: #00ff9f;
+  position: relative;
+  animation: glitch 2s infinite;
 }
-#hero h2 {
-  font-size: 2.8rem;
-  margin-top: 1.2rem;
-  font-weight: 700;
-  color: white;
+@keyframes glitch {
+  0% { text-shadow: 2px 0 #ff6fff, -2px 0 #ff6fff; }
+  20% { text-shadow: -2px 0 #00ffff, 2px 2px #ff00ff; }
+  40% { text-shadow: 1px -1px #ff6fff, -1px 1px #00ff9f; }
+  60% { text-shadow: 2px 1px #ff00ff, -2px -1px #00ff9f; }
+  80% { text-shadow: -1px 2px #ff6fff, 1px -2px #00ffff; }
+  100% { text-shadow: 2px 0 #ff6fff, -2px 0 #ff6fff; }
 }
-#hero p.typing {
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  border-right: 3px solid white;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  animation: typing 4s steps(30, end), blink 0.8s step-end infinite;
-  color: #ddd;
-}
-@keyframes typing { from { width: 0; } to { width: 100%; } }
-@keyframes blink { 50% { border-color: transparent; } }
+#hero p.typing { margin-top: 1rem; font-size: 1.2rem; border-right: 3px solid white; display: inline-block; white-space: nowrap; overflow: hidden; color: #ddd; }
 
-/* Resume Button */
-.resume-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 2.5rem;
-  width: 100%;
-}
 .resume-btn {
   padding: 1rem 3rem;
-  background: white;
-  color: #000;
-  font-weight: 700;
-  border-radius: 9999px;
+  background: #000;
+  color: #00ff9f;
+  border: 2px solid #00ff9f;
   text-decoration: none;
-  transition: all 0.4s ease;
-  box-shadow: 0 0 25px rgba(255,255,255,0.3);
+  border-radius: 9999px;
+  box-shadow: 0 0 20px #00ff9f, 0 0 40px #00ff9f, 0 0 60px #00ff9f;
+  transition: all 0.3s ease;
+  animation: pulseNeon 2s infinite;
+}
+@keyframes pulseNeon {
+  0%,100% { box-shadow: 0 0 20px #00ff9f, 0 0 40px #ff6fff; }
+  50% { box-shadow: 0 0 40px #00ff9f, 0 0 80px #ff6fff; }
 }
 .resume-btn:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 0 45px rgba(255,255,255,0.6);
+  transform: scale(1.15) rotate(-2deg);
+  box-shadow: 0 0 40px #00ff9f,0 0 80px #ff6fff,0 0 120px #00ff9f;
+}
+
+/* ---------- FLOATING CODE IN HERO ---------- */
+#code-float {
+  position: absolute;
+  top: 20%; left: 10%;
+  font-family: monospace;
+  color: #00ff9f;
+  opacity: 0.2;
+  animation: floatCode 15s linear infinite;
+}
+#code-float span {
+  display: block;
+  margin: 0.5rem 0;
+}
+@keyframes floatCode {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-800px) rotate(360deg); }
 }
 
 /* ---------- SECTIONS ---------- */
@@ -219,6 +214,13 @@ section {
   margin: 0 auto;
   padding: 3rem 1.5rem;
   border-top: 1px solid #555;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0,0,0,0.3);
+  border-radius: 15px;
+  margin-bottom: 3rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px #00ff9f, 0 0 40px #ff6fff;
 }
 section h2 {
   font-size: 2rem;
@@ -226,11 +228,19 @@ section h2 {
   border-left: 4px solid grey;
   padding-left: 0.7rem;
   color: white;
+  position: relative;
 }
-section p, li {
-  color: #ccc;
-  line-height: 1.6;
+section h2::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 50px; height: 2px;
+  background: #ff6fff;
+  animation: underlineGlow 2s infinite alternate;
 }
+@keyframes underlineGlow { 0% { width: 50px; opacity: 0.5; } 100% { width: 100px; opacity: 1; } }
+
+/* ---------- SKILLS ---------- */
 #skills ul {
   list-style: none;
   display: flex;
@@ -242,12 +252,21 @@ section p, li {
   border: 1px solid #555;
   padding: 0.6rem 1.3rem;
   border-radius: 30px;
-  transition: all 0.3s;
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
 }
-#skills li:hover {
-  background: white;
-  color: #000;
+#skills li::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: #ff6fff;
+  transition: 0.5s;
+  z-index: -1;
 }
+#skills li:hover::before { left: 0; }
+#skills li:hover { color: #fff; transform: scale(1.1); }
 
 /* ---------- PROJECTS ---------- */
 #projects {
@@ -260,50 +279,87 @@ section p, li {
   padding: 1.5rem;
   border-radius: 10px;
   border: 1px solid #555;
-  transition: all 0.3s;
+  transition: all 0.5s ease;
+  transform-style: preserve-3d;
 }
 #projects article:hover {
-  background: rgba(255,255,255,0.1);
-  transform: translateY(-5px);
-  box-shadow: 0 0 25px rgba(255,255,255,0.2);
+  background: rgba(255,111,145,0.15);
+  transform: rotateY(15deg) rotateX(10deg) translateZ(30px);
+  box-shadow: 0 0 80px #ff6f91, 0 0 120px #00ff9f;
 }
-#projects a {
-  color: white;
-  font-size: 1.3rem;
-  text-decoration: none;
-  font-weight: 600;
-}
+#projects a { color: white; font-size: 1.3rem; font-weight: 600; text-decoration: none; }
 
 /* ---------- CONTACT ---------- */
+#contact {
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(12px);
+  border: 2px solid #00ff9f;
+  box-shadow: 0 0 50px #00ff9f, 0 0 100px #ff6fff;
+  padding: 3rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  max-width: 600px;
+  margin: 0 auto;
+}
+#contact h2 {
+  color: #00ff9f;
+  font-size: 2.2rem;
+  text-shadow: 0 0 10px #00ff9f, 0 0 20px #ff6fff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
 #contact form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid #555;
-  padding: 2rem;
-  border-radius: 10px;
+  gap: 1.2rem;
 }
-#contact input, #contact textarea {
-  background: #000;
-  color: white;
-  border: 1px solid #555;
-  border-radius: 6px;
-  padding: 0.8rem 1rem;
+.input-group {
+  position: relative;
+}
+.input-group input, .input-group textarea {
+  width: 100%;
+  background: rgba(0,0,0,0.8);
+  border: 2px solid #00ff9f;
+  border-radius: 12px;
+  padding: 1rem;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none;
+  transition: 0.3s;
+}
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 0.8rem;
+  font-size: 0.8rem;
+  color: #00ff9f;
 }
 #contact button {
-  background: white;
+  background: linear-gradient(45deg, #00ff9f, #ff6fff);
   color: #000;
   font-weight: 700;
-  padding: 0.9rem;
+  padding: 1rem;
   border: none;
   border-radius: 9999px;
   cursor: pointer;
-  transition: 0.3s;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 20px #00ff9f, 0 0 40px #ff6fff;
 }
 #contact button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(255,255,255,0.4);
+  transform: scale(1.1) rotate(-2deg);
+  box-shadow: 0 0 40px #00ff9f, 0 0 80px #ff6fff, 0 0 120px #00ff9f;
 }
 
 /* ---------- SCROLL REVEAL ---------- */
@@ -316,21 +372,48 @@ section p, li {
   opacity: 1;
   transform: translateY(0px);
 }
+
+/* ---------- CURSOR TRAIL ---------- */
+.cursor-trail {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: #00ff9f;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.6;
+  transform: translate(-50%, -50%);
+  animation: fadeTrail 0.5s forwards;
+}
+@keyframes fadeTrail { to { opacity: 0; transform: translate(-50%, -50%) scale(0); } }
+
+/* ---------- SCROLL INDICATOR ---------- */
+#scroll-indicator {
+  position: fixed;
+  top: 0; right: 0;
+  width: 4px; height: 0;
+  background: linear-gradient(#00ff9f, #ff6fff);
+  z-index: 1000;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  #hero { flex-direction: column; }
+}
 </style>
 </head>
 <body>
 
+<!-- PARTICLE + CODE RAIN -->
+<canvas id="particles"></canvas>
+<canvas id="code-rain"></canvas>
+
 <!-- INTRO -->
 <div id="intro-screen"><h1>CODE AND INNOVATE</h1></div>
 
-<!-- CLOCK + DATE BOX -->
-<div id="clock-box">
-  <div id="clock">
-    <div class="hand hour"></div>
-    <div class="hand minute"></div>
-    <div class="hand second"></div>
-  </div>
-  <div id="date-box"></div>
+<!-- CLOCK + DATE -->
+<div id="clock-date-box">
+  <div id="digital-clock">00:00:00</div>
+  <div id="day-date">Monday, Jan 01, 2025</div>
 </div>
 
 <!-- HEADER -->
@@ -350,8 +433,11 @@ section p, li {
   <img src="Profile.jpg" alt="Profile Picture">
   <h2>Hello, I'm Krishna Shinde</h2>
   <p class="typing">Full-Stack Developer | Exploring Blockchain & AI 🚀</p>
-  <div class="resume-container">
-    <a href="#" class="resume-btn">📄 Download Resume</a>
+  <a href="#" class="resume-btn">📄 Download Resume</a>
+  <div id="code-float">
+    <span>console.log('Innovate!');</span>
+    <span>const future = async () => await dream();</span>
+    <span>if (idea) build();</span>
   </div>
 </section>
 
@@ -387,15 +473,27 @@ section p, li {
 <section id="contact" class="reveal">
   <h2>Contact Me</h2>
   <form>
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Your Email" required>
-    <textarea rows="4" placeholder="Your Message..." required></textarea>
+    <div class="input-group">
+      <input type="text" required placeholder=" ">
+      <label>Your Name</label>
+    </div>
+    <div class="input-group">
+      <input type="email" required placeholder=" ">
+      <label>Your Email</label>
+    </div>
+    <div class="input-group">
+      <textarea rows="4" required placeholder=" "></textarea>
+      <label>Your Message</label>
+    </div>
     <button type="submit">Send</button>
   </form>
 </section>
 
+<!-- SCROLL INDICATOR -->
+<div id="scroll-indicator"></div>
+
 <script>
-// Scroll reveal
+// ---------- SCROLL REVEAL ----------
 const reveals = document.querySelectorAll(".reveal");
 window.addEventListener("scroll", () => {
   reveals.forEach(rev => {
@@ -405,25 +503,125 @@ window.addEventListener("scroll", () => {
   });
 });
 
-// Analog Clock
-const hourHand = document.querySelector('.hour');
-const minuteHand = document.querySelector('.minute');
-const secondHand = document.querySelector('.second');
-function updateClock() {
+// ---------- DIGITAL CLOCK + DATE ----------
+function updateClockDate() {
   const now = new Date();
-  const sec = now.getSeconds() * 6;
-  const min = now.getMinutes() * 6 + sec/60;
-  const hr = ((now.getHours() % 12) / 12) * 360 + min/12;
-  hourHand.style.transform = `rotate(${hr}deg)`;
-  minuteHand.style.transform = `rotate(${min}deg)`;
-  secondHand.style.transform = `rotate(${sec}deg)`;
-
-  // Update date & day
-  const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-  document.getElementById('date-box').textContent = now.toLocaleDateString('en-US', options);
+  const hours = String(now.getHours()).padStart(2,'0');
+  const minutes = String(now.getMinutes()).padStart(2,'0');
+  const seconds = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('digital-clock').textContent = `${hours}:${minutes}:${seconds}`;
+  const options = { weekday:'long', year:'numeric', month:'short', day:'numeric' };
+  document.getElementById('day-date').textContent = now.toLocaleDateString('en-US', options);
 }
-setInterval(updateClock, 1000);
-updateClock();
+setInterval(updateClockDate, 1000);
+updateClockDate();
+
+// ---------- TYPING EFFECT ----------
+const phrases = ["Full-Stack Developer", "Blockchain Enthusiast", "AI Explorer", "UI/UX Designer"];
+let i = 0;
+const typingEl = document.querySelector(".typing");
+function typePhrase() {
+  const phrase = phrases[i % phrases.length];
+  typingEl.textContent = "";
+  let j = 0;
+  const interval = setInterval(() => {
+    typingEl.textContent += phrase[j];
+    j++;
+    if (j >= phrase.length) {
+      clearInterval(interval);
+      setTimeout(() => { i++; typePhrase(); }, 2000);
+    }
+  }, 100);
+}
+typePhrase();
+
+// ---------- CURSOR TRAIL ----------
+document.addEventListener("mousemove", (e) => {
+  const circle = document.createElement("div");
+  circle.classList.add("cursor-trail");
+  circle.style.left = e.pageX + "px";
+  circle.style.top = e.pageY + "px";
+  document.body.appendChild(circle);
+  setTimeout(() => circle.remove(), 500);
+});
+
+// ---------- PARTICLE BACKGROUND ----------
+const particleCanvas = document.getElementById('particles');
+const pCtx = particleCanvas.getContext('2d');
+particleCanvas.width = window.innerWidth;
+particleCanvas.height = window.innerHeight;
+const particles = [];
+class Particle {
+  constructor() {
+    this.x = Math.random()*particleCanvas.width;
+    this.y = Math.random()*particleCanvas.height;
+    this.size = Math.random()*3+1;
+    this.speedX = Math.random()*1-0.5;
+    this.speedY = Math.random()*1-0.5;
+    this.color = `hsl(${Math.random()*360},100%,50%)`;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x<0||this.x>particleCanvas.width) this.speedX*=-1;
+    if(this.y<0||this.y>particleCanvas.height) this.speedY*=-1;
+  }
+  draw() {
+    pCtx.fillStyle = this.color;
+    pCtx.shadowColor = this.color;
+    pCtx.shadowBlur = 15;
+    pCtx.beginPath();
+    pCtx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    pCtx.fill();
+  }
+}
+for(let i=0;i<100;i++) particles.push(new Particle());
+function animateParticles() {
+  pCtx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ---------- PARTICLE INTERACTION ----------
+document.addEventListener('mousemove', e => {
+  particles.forEach(p => {
+    const dx = p.x - e.clientX;
+    const dy = p.y - e.clientY;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if(dist < 100) { p.x += dx/50; p.y += dy/50; }
+  });
+});
+
+// ---------- MATRIX CODE RAIN ----------
+const rainCanvas = document.getElementById('code-rain');
+const rCtx = rainCanvas.getContext('2d');
+rainCanvas.width = window.innerWidth;
+rainCanvas.height = window.innerHeight;
+const letters = "01{}();<>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const fontSize = 18;
+const columns = Math.floor(rainCanvas.width / fontSize);
+const drops = Array(columns).fill(1);
+function drawMatrix() {
+  rCtx.fillStyle = "rgba(0,0,0,0.05)";
+  rCtx.fillRect(0,0,rainCanvas.width,rainCanvas.height);
+  rCtx.fillStyle = "#00ff9f";
+  rCtx.font = fontSize + "px monospace";
+  drops.forEach((y,i)=>{
+    const text = letters[Math.floor(Math.random()*letters.length)];
+    rCtx.fillText(text,i*fontSize,y*fontSize);
+    drops[i]++;
+    if(y*fontSize>rainCanvas.height && Math.random()>0.975) drops[i]=0;
+  });
+}
+setInterval(drawMatrix,50);
+
+// ---------- SCROLL INDICATOR ----------
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const scroll = window.scrollY / h;
+  document.getElementById('scroll-indicator').style.height = `${scroll*100}%`;
+});
 </script>
 </body>
 </html>
