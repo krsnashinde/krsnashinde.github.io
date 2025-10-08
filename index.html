@@ -139,7 +139,7 @@ nav a:hover::after { width: 100%; }
   gap: 2rem;
   overflow: hidden;
 }
-#hero img {
+#hero img.profile {
   width: 250px;
   height: 250px;
   object-fit: cover;
@@ -398,12 +398,13 @@ section h2::after {
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
   #hero { flex-direction: column; }
+  #hero img.profile { width: 180px; height: 180px; }
 }
 </style>
 </head>
 <body>
 
-<!-- PARTICLE + CODE RAIN -->
+<!-- PARTICLE + BUBBLES -->
 <canvas id="particles"></canvas>
 <canvas id="code-rain"></canvas>
 
@@ -430,10 +431,18 @@ section h2::after {
 
 <!-- HERO -->
 <section id="hero">
-  <img src="Profile.jpg" alt="Profile Picture">
+  <img src="Profile.jpg" alt="Profile Picture" class="profile">
   <h2>Hello, I'm Krishna Shinde</h2>
   <p class="typing">Full-Stack Developer | Exploring Blockchain & AI 🚀</p>
   <a href="#" class="resume-btn">📄 Download Resume</a>
+
+  <!-- FEATURED IMAGE -->
+  <div style="margin-top: 2rem;">
+    <img src="https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2022/06/Portfolio-website-of-the-product-designer-and-front-end-developer-Adham-Dannaway.png" 
+         alt="Featured Portfolio Example" 
+         style="width: 80%; max-width: 700px; border-radius: 15px; box-shadow: 0 0 30px #00ff9f, 0 0 50px #ff6fff;">
+  </div>
+
   <div id="code-float">
     <span>console.log('Innovate!');</span>
     <span>const future = async () => await dream();</span>
@@ -586,38 +595,30 @@ function animateParticles() {
 }
 animateParticles();
 
-// ---------- PARTICLE INTERACTION ----------
-document.addEventListener('mousemove', e => {
-  particles.forEach(p => {
-    const dx = p.x - e.clientX;
-    const dy = p.y - e.clientY;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-    if(dist < 100) { p.x += dx/50; p.y += dy/50; }
-  });
-});
-
-// ---------- MATRIX CODE RAIN ----------
+// ---------- BUBBLE ANIMATION (REPLACES MATRIX CODE) ----------
 const rainCanvas = document.getElementById('code-rain');
 const rCtx = rainCanvas.getContext('2d');
 rainCanvas.width = window.innerWidth;
 rainCanvas.height = window.innerHeight;
-const letters = "01{}();<>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const fontSize = 18;
-const columns = Math.floor(rainCanvas.width / fontSize);
-const drops = Array(columns).fill(1);
-function drawMatrix() {
-  rCtx.fillStyle = "rgba(0,0,0,0.05)";
-  rCtx.fillRect(0,0,rainCanvas.width,rainCanvas.height);
-  rCtx.fillStyle = "#00ff9f";
-  rCtx.font = fontSize + "px monospace";
-  drops.forEach((y,i)=>{
-    const text = letters[Math.floor(Math.random()*letters.length)];
-    rCtx.fillText(text,i*fontSize,y*fontSize);
-    drops[i]++;
-    if(y*fontSize>rainCanvas.height && Math.random()>0.975) drops[i]=0;
-  });
+class Bubble {
+  constructor() {
+    this.x = Math.random()*rainCanvas.width;
+    this.y = Math.random()*rainCanvas.height;
+    this.radius = Math.random()*8+2;
+    this.speed = Math.random()*1+0.5;
+    this.color = `rgba(0,255,159,${Math.random()*0.5+0.3})`;
+  }
+  update() { this.y -= this.speed; if(this.y<-this.radius) { this.y = rainCanvas.height + this.radius; this.x = Math.random()*rainCanvas.width; } }
+  draw() { rCtx.beginPath(); rCtx.arc(this.x,this.y,this.radius,0,Math.PI*2); rCtx.fillStyle=this.color; rCtx.fill(); }
 }
-setInterval(drawMatrix,50);
+const bubbles = [];
+for(let i=0;i<120;i++) bubbles.push(new Bubble());
+function animateBubbles() {
+  rCtx.clearRect(0,0,rainCanvas.width,rainCanvas.height);
+  bubbles.forEach(b => { b.update(); b.draw(); });
+  requestAnimationFrame(animateBubbles);
+}
+animateBubbles();
 
 // ---------- SCROLL INDICATOR ----------
 window.addEventListener('scroll', () => {
