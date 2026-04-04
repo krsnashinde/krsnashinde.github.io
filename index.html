@@ -400,34 +400,6 @@ section h2::after {
   #hero { flex-direction: column; }
   #hero img.profile { width: 180px; height: 180px; }
 }
-/* ---------- RATING ---------- */
-#rating {
-  text-align: center;
-}
-
-.rating-box {
-  font-size: 2.5rem;
-  margin-top: 1rem;
-}
-
-.star {
-  cursor: pointer;
-  color: #555;
-  transition: all 0.3s ease;
-}
-
-.star:hover,
-.star.active {
-  color: #00ff9f;
-  text-shadow: 0 0 10px #00ff9f, 0 0 20px #ff6fff;
-  transform: scale(1.2);
-}
-
-#rating-text {
-  margin-top: 1rem;
-  color: #ccc;
-  font-size: 1rem;
-}
 </style>
 </head>
 <body>
@@ -531,7 +503,6 @@ Beyond coding, I’m continuously exploring emerging trends in web development t
 
 <!-- SCROLL INDICATOR -->
 <div id="scroll-indicator"></div>
-
 
 <script>
 // ---------- SCROLL REVEAL ----------
@@ -654,42 +625,7 @@ window.addEventListener('scroll', () => {
   const h = document.documentElement.scrollHeight - window.innerHeight;
   const scroll = window.scrollY / h;
   document.getElementById('scroll-indicator').style.height = `${scroll*100}%`;
-
 });
-// ---------- STAR RATING ----------
-const stars = document.querySelectorAll(".star");
-const ratingText = document.getElementById("rating-text");
-
-stars.forEach(star => {
-  star.addEventListener("click", () => {
-    let value = star.getAttribute("data-value");
-
-    stars.forEach(s => s.classList.remove("active"));
-
-    for (let i = 0; i < value; i++) {
-      stars[i].classList.add("active");
-    }
-
-    ratingText.textContent = `You rated ${value} star${value > 1 ? 's' : ''} ⭐`;
-  });
-});
-
 </script>
-<!-- ADD THIS JUST BEFORE SCROLL INDICATOR OR BEFORE </body> -->
-
-<!-- ⭐ RATING SECTION -->
-<section id="rating" class="reveal">
-  <h2>Do you like it? ⭐</h2>
-  
-  <div class="rating-box">
-    <span class="star" data-value="1">★</span>
-    <span class="star" data-value="2">★</span>
-    <span class="star" data-value="3">★</span>
-    <span class="star" data-value="4">★</span>
-    <span class="star" data-value="5">★</span>
-  </div>
-
-  <p id="rating-text">Click a star to rate</p>
-</section>
 </body>
 </html>
